@@ -1,8 +1,3 @@
-/**
- * Created by Jake on 2/24/14.
- */
-
-
 public class SimplifiedDES{
     boolean enableDebug;
 
@@ -12,36 +7,40 @@ public class SimplifiedDES{
 
     //12-bit ciphertext  encrypt(12-bit plantext,9-bit key,number of rounds)
     public boolean[] encrypt(boolean[] plaintext, boolean[] key, int rounds) throws Exception {
+       pl("===== Starting Encrypt =====");
+
         //2-d array for L & R where 1st dimension is round and 2nd is the current array of values
-        boolean[][] L           = new boolean[rounds+1][6];
-        boolean[][] R           = new boolean[rounds+1][6];
-        boolean[][] K           = new boolean[rounds+1][9];
+        boolean[][] L = new boolean[rounds+1][6];
+        boolean[][] R = new boolean[rounds+1][6];
+        boolean[][] K = new boolean[rounds+1][9];
 
         //Setting up round 0 for vars
         boolean[][] splitPlainText = splitArray(plaintext);
         L[0]=splitPlainText[0];
         R[0]=splitPlainText[1];
-        p("L[0]: ");
+        p("encrypt L[0]: ");
         pl(L[0]);
-        p("R[0]: ");
+        p("encrypt R[0]: ");
         pl(R[0]);
-        K[0]=key;
+
+        p("decrypt key: ");
+        pl(key);
 
         //loop start
         int curRound;
         for(curRound=1;curRound<=rounds;curRound++){
-            K[curRound] = roundKey(K[0],curRound); //Round key.
-            p("K["+curRound+"]: ");
+            K[curRound] = roundKey(key,curRound); //Round key.
+            p("encrypt K["+curRound+"]: ");
             pl(K[curRound]);
 
-            p("r["+curRound+"]: ");
+            p("encrypt r["+curRound+"]: ");
             boolean[][] LR = splitArray(simpleDES(joinArrays(L[curRound-1],R[curRound-1]),K[curRound]));
             L[curRound] = LR[0];
             R[curRound] = LR[1];
 
-            p("L["+curRound+"]: ");
+            p("encrypt L["+curRound+"]: ");
             pl(L[curRound]);
-            p("R["+curRound+"]: ");
+            p("encrypt R["+curRound+"]: ");
             pl(R[curRound]);
         }
         curRound--;
@@ -64,36 +63,39 @@ public class SimplifiedDES{
     }
 
     public boolean[] decrypt(boolean[] plaintext, boolean[] key, int rounds) throws Exception {
+        pl("===== Starting Decrypt =====");
+
         //2-d array for L & R where 1st dimension is round and 2nd is the current array of values
-        boolean[][] L           = new boolean[rounds+1][6];
-        boolean[][] R           = new boolean[rounds+1][6];
-        boolean[][] K           = new boolean[rounds+1][9];
+        boolean[][] L = new boolean[rounds+2][6]; //rounds+1 is the starting index for variables.
+        boolean[][] R = new boolean[rounds+2][6];
+        boolean[][] K = new boolean[rounds+2][9];
 
         //Setting up round 0 for vars
         boolean[][] splitPlainText = splitArray(plaintext);
-        L[rounds]=splitPlainText[0];
-        R[rounds]=splitPlainText[1];
-        p("L["+rounds+"]: ");
-        pl(L[rounds]);
-        p("R["+rounds+"]: ");
-        pl(R[rounds]);
-        K[rounds]=key;
+        L[rounds+1]=splitPlainText[0];
+        R[rounds+1]=splitPlainText[1];
+        p("decrypt L["+(rounds+1)+"]: ");
+        pl(L[rounds+1]);
+        p("decrypt R["+(rounds+1)+"]: ");
+        pl(R[rounds+1]);
+        p("decrypt key: ");
+        pl(key);
 
         //loop start
         int curRound;
         for(curRound=rounds;curRound>0;curRound--){
-            K[curRound] = roundKey(K[0],curRound); //Round key.
-            p("K["+curRound+"]: ");
+            K[curRound] = roundKey(key,curRound); //Round key.
+            p("decrypt K["+curRound+"]: ");
             pl(K[curRound]);
 
-            p("r["+curRound+"]: ");
-            boolean[][] LR = splitArray(simpleDES(joinArrays(L[curRound-1],R[curRound-1]),K[curRound]));
+            p("decrypt r["+curRound+"]: ");
+            boolean[][] LR = splitArray(simpleDES(joinArrays(L[curRound+1],R[curRound+1]),K[curRound]));
             L[curRound] = LR[0];
             R[curRound] = LR[1];
 
-            p("L["+curRound+"]: ");
+            p("decrypt L["+curRound+"]: ");
             pl(L[curRound]);
-            p("R["+curRound+"]: ");
+            p("decrypt R["+curRound+"]: ");
             pl(R[curRound]);
         }
         curRound++;
@@ -111,17 +113,16 @@ public class SimplifiedDES{
         pl(roundResult);
         outL = R;
         outR = xorArrays(L,roundResult);
-        boolean[] out;
         return joinArrays(outL,outR);
     }
 
     //Takes a 6-bit R and using an 8-bit K, creates a 6-bit return
     public boolean[] roundFunction(boolean[] R,boolean[] K) throws Exception {
         if(R.length != 6){
-            throw new Exception("R in roundFunction() a 6-bit value! ERROR!");
+            throw new Exception("R in roundFunction() is not a 6-bit value!");
         }
         if(K.length != 8){
-            throw new Exception("K in roundFunction() an 8-bit value! ERROR!");
+            throw new Exception("K in roundFunction() is not an 8-bit value!");
         }
         boolean[] ER = expander(R);
         boolean[] xorER = xorArrays(ER,K);
@@ -130,7 +131,7 @@ public class SimplifiedDES{
         boolean[] sboxd2 = sbox2(splitXorER[1]);
         boolean[] out = joinArrays(sboxd1,sboxd2);
         if(out.length != 6){
-            throw new Exception("roundFunction() did not return a 6-bit value! ERROR!");
+            throw new Exception("roundFunction() did not return a 6-bit value!");
         }
         return out;
     }
@@ -173,11 +174,8 @@ public class SimplifiedDES{
         int[] out = new int[2];
         out[0] = (in[0])?1:0; //row
         boolean[] colArray = new boolean[3];
-        for(int i=1;i<4;i++){
-            colArray[i-1]=in[i];
-        }
+        System.arraycopy(in, 1, colArray, 0, 3);
         out[1] = Integer.parseInt(toString(colArray),2); //col
-
         return out;
     }
 
@@ -238,7 +236,7 @@ public class SimplifiedDES{
     //Takes 9-bit Key K and round i and returns a 8-bit round key.
     public boolean[] roundKey(boolean[] K, int i) throws Exception {
         if(K.length != 9){
-            throw new Exception("K in roundFunction() a 9-bit value! ERROR!");
+            throw new Exception("K in roundKey() is not a 9-bit value!");
         }
         boolean[] twoK = joinArrays(K,K);
         boolean[] out = new boolean[8];
@@ -279,13 +277,12 @@ public class SimplifiedDES{
     }
 
     public String toString(boolean[] a){
-        int alen = a.length;
         String output = "";
-        for(int i=0;i<alen;i++){
-            if(a[i]){
-                output=output+"1";
-            }else{
-                output=output+"0";
+        for (boolean aBoolVal : a) {
+            if (aBoolVal) {
+                output = output + "1";
+            } else {
+                output = output + "0";
             }
         }
         return output;
@@ -295,11 +292,7 @@ public class SimplifiedDES{
         int alen = a.length;
         boolean[] output = new boolean[alen];
         for(int i=0;i<alen;i++){
-            if(a[i] == 1 ){
-                output[i]=true;
-            }else{
-                output[i]=false;
-            }
+            output[i] = a[i] == 1;
         }
         return output;
     }
