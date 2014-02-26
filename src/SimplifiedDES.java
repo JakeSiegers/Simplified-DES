@@ -22,7 +22,6 @@ public class SimplifiedDES{
         pl(L[0]);
         p("encrypt R[0]: ");
         pl(R[0]);
-
         p("decrypt key: ");
         pl(key);
 
