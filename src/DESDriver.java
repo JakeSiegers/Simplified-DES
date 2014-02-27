@@ -2,7 +2,7 @@ public class DESDriver {
     public static void main(String[] args){
 
         try {
-            SimplifiedDES desObj = new SimplifiedDES(true);
+            SimplifiedDES desObj = new SimplifiedDES(false);
 
             int[] inta = {1,0,0,0,1,0,1,1,0,1,0,1};
             int[] intKey = {1,1,1,0,0,0,1,1,1};
@@ -14,7 +14,7 @@ public class DESDriver {
 
             key = desObj.intArrayToBoolArray(intKey);
 
-            boolean[] plaintext2 = desObj.decrypt(ciphertext, key, 6);
+            boolean[] plaintext2 = desObj.decrypt(ciphertext, key,6);
 
             pl(desObj.toString(plaintext));
             pl(desObj.toString(ciphertext));
