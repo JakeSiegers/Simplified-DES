@@ -1,14 +1,14 @@
 import java.util.BitSet;
 
 public class SimplifiedDES{
-    boolean enableDebug;
+    private static boolean enableDebug;
 
-    SimplifiedDES(boolean enableDebug){
-        this.enableDebug=enableDebug;
+    public static void enableDebug(boolean x){
+        enableDebug=x;
     }
 
     //12-bit ciphertext  encrypt(12-bit plantext,9-bit key,number of rounds)
-    public BitSet encrypt(BitSet plaintext, BitSet key, int rounds) throws Exception {
+    public static BitSet encrypt(BitSet plaintext, BitSet key, int rounds) throws Exception {
        pl("===== Starting Encrypt =====");
 
         //2-d array for L & R where 1st dimension is round and 2nd is the current array of values
@@ -49,19 +49,22 @@ public class SimplifiedDES{
     }
 
     //Returns a 2d array containing each half of the in array.
-    public BitSet[] splitArray(BitSet in,int length) throws Exception {
-        int inLen=length;
-        int half_inLen = inLen/2;
-        if(inLen%2 != 0){
+    public static BitSet[] splitArray(BitSet in,int length) throws Exception {
+        int half_inLen = length /2;
+        if(length %2 != 0){
             throw new Exception("The splitArray function can only handle even length arrays. (odd arrays should never happen in this problem!)");
         }
         BitSet[] out = new BitSet[2];
-        out[0]=in.get(0,half_inLen-3);
-        out[1]=in.get(half_inLen,inLen-1);
+        out[0] = new BitSet(half_inLen);
+        out[1] = new BitSet(half_inLen);
+        for(int x=0;x<half_inLen;x++){
+            out[0].set(x,in.get(x));
+            out[1].set(half_inLen-1-x,in.get(length - 1 - x));
+        }
         return out;
     }
 
-    public BitSet decrypt(BitSet plaintext, BitSet key, int rounds) throws Exception {
+    public static BitSet decrypt(BitSet plaintext, BitSet key, int rounds) throws Exception {
         pl("===== Starting Decrypt =====");
 
         //2-d array for L & R where 1st dimension is round and 2nd is the current array of values
@@ -102,7 +105,7 @@ public class SimplifiedDES{
     }
 
     //12 bit input and 8-bit round key. returns a 12-bit
-    public BitSet simpleDES(BitSet LR, BitSet K) throws Exception {
+    public static BitSet simpleDES(BitSet LR, BitSet K) throws Exception {
         BitSet outL;
         BitSet outR;
         BitSet[] LRSplit = splitArray(LR,12);
@@ -115,7 +118,7 @@ public class SimplifiedDES{
         return joinArrays(outL,outR,6);
     }
 
-    public BitSet xorArrays(BitSet a,BitSet b){
+    public static BitSet xorArrays(BitSet a,BitSet b){
         BitSet out;
         out=(BitSet)a.clone();
         out.xor(b);
@@ -123,19 +126,18 @@ public class SimplifiedDES{
     }
 
     //Takes a 6-bit R and using an 8-bit K, creates a 6-bit return
-    public BitSet roundFunction(BitSet R,BitSet K) throws Exception {
+    public static BitSet roundFunction(BitSet R,BitSet K) throws Exception {
 
         BitSet ER = expander(R);
-        BitSet xorER = xorArrays(ER,K);
-        BitSet[] splitXorER = splitArray(xorER,8);
+        BitSet xorER = xorArrays(ER, K);
+        BitSet[] splitXorER = splitArray(xorER, 8);
         BitSet sboxd1 = sbox1(splitXorER[0]);
         BitSet sboxd2 = sbox2(splitXorER[1]);
-        BitSet out = joinArrays(sboxd1,sboxd2,3);
-        return out;
+        return joinArrays(sboxd1, sboxd2, 3);
     }
 
     // 8-bit output expander(6-bit input)
-    public BitSet expander(BitSet in){
+    public static BitSet expander(BitSet in){
         BitSet out = new BitSet(8);
         for(int i=0;i<6;i++){
             switch(i){
@@ -165,16 +167,14 @@ public class SimplifiedDES{
     }
 
     //Index 0 is Row, Index 1 is Col
-    private int[] determineRowColForSboxes(BitSet in){
+    private static int[] determineRowColForSboxes(BitSet in){
         int[] out = new int[2];
         out[0] = in.get(0)?1:0; //row
-        boolean[] colArray = new boolean[3];
-        System.arraycopy(in, 1, colArray, 0, 3);
-        out[1] = Integer.parseInt(toString(colArray),2); //col
+        out[1] = Integer.parseInt(bitSetToStr(in.get(1, 3), 3),2); //col
         return out;
     }
 
-    public BitSet sbox1(BitSet in){
+    public static BitSet sbox1(BitSet in){
         String[][] s1 = {
             {
                  "101"
@@ -201,7 +201,7 @@ public class SimplifiedDES{
         return strToBitSet(s1[rowCol[0]][rowCol[1]]);
     }
 
-    public BitSet sbox2(BitSet in){
+    public static BitSet sbox2(BitSet in){
         String[][] s2 = {
             {
                  "100"
@@ -229,7 +229,7 @@ public class SimplifiedDES{
     }
 
     //Takes 9-bit Key K and round i and returns a 8-bit round key.
-    public BitSet roundKey(BitSet K, int i) {
+    public static BitSet roundKey(BitSet K, int i) {
         String twoK = bitSetToStr(K,9)+bitSetToStr(K,9);
         BitSet out = new BitSet(8);
         int startPt = (i-1)%9;
@@ -239,32 +239,11 @@ public class SimplifiedDES{
         return out;
     }
 
-    public BitSet joinArrays(BitSet a,BitSet b, int eachSize){
+    public static BitSet joinArrays(BitSet a,BitSet b, int eachSize){
         return strToBitSet(bitSetToStr(a,eachSize)+bitSetToStr(b,eachSize));
     }
 
-    public String toString(boolean[] a){
-        String output = "";
-        for (boolean aBoolVal : a) {
-            if (aBoolVal) {
-                output = output + "1";
-            } else {
-                output = output + "0";
-            }
-        }
-        return output;
-    }
-
-    public boolean[] intArrayToBoolArray(int[] a){
-        int alen = a.length;
-        boolean[] output = new boolean[alen];
-        for(int i=0;i<alen;i++){
-            output[i] = a[i] == 1;
-        }
-        return output;
-    }
-
-    private BitSet strToBitSet(String in) {
+    public static BitSet strToBitSet(String in) {
         BitSet out = new BitSet(in.length());
         for(int i=0;i<in.length();i++){
             out.set(i,(in.charAt(i) == '1'));
@@ -272,7 +251,7 @@ public class SimplifiedDES{
         return out;
     }
 
-    private String bitSetToStr(BitSet in,int bytes) {
+    public static String bitSetToStr(BitSet in,int bytes) {
         String out="";
         for(int i=0;i<bytes;i++){
             out=out+(in.get(i)?"1":"0");
@@ -280,25 +259,21 @@ public class SimplifiedDES{
         return out;
     }
 
-    private void pl(BitSet x,int bytes){
-        System.out.println(bitSetToStr(x,bytes));
+    public static void pl(BitSet x,int bytes){
+        if(enableDebug){
+            System.out.println(bitSetToStr(x,bytes));
+        }
     }
 
-    private void p(String x){
+    private static void p(String x){
         if(enableDebug){
             System.out.print(x);
         }
     }
 
-    private void pl(String x){
+    private static void pl(String x){
         if(enableDebug){
             System.out.println(x);
-        }
-    }
-
-    private void pl(boolean[] x){
-        if(enableDebug){
-            System.out.println(toString(x));
         }
     }
 }
