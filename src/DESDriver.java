@@ -14,10 +14,10 @@ public class DESDriver {
 
             plaintext2 = SimplifiedDES.decrypt(ciphertext,key,6);
 
-            System.out.println("Key:"+SimplifiedDES.bitSetToStr(key,9));
-            System.out.println("PlainText 0: "+SimplifiedDES.bitSetToStr(plaintext,12));
-            System.out.println("CipherText: "+SimplifiedDES.bitSetToStr(ciphertext,12));
-            System.out.println("PlainText 1: "+SimplifiedDES.bitSetToStr(plaintext2,12));
+            System.out.println("Key:              "+SimplifiedDES.bitSetToStr(key,9));
+            System.out.println("PlainText Before: "+SimplifiedDES.bitSetToStr(plaintext,12));
+            System.out.println("CipherText:       "+SimplifiedDES.bitSetToStr(ciphertext,12));
+            System.out.println("PlainText After:  "+SimplifiedDES.bitSetToStr(plaintext2,12));
 
             System.exit(0);
         } catch (Exception e) {
