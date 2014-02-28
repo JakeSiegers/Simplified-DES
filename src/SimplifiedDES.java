@@ -17,7 +17,7 @@ public class SimplifiedDES{
         BitSet[] K = new BitSet[rounds+1];
 
         //Setting up round 0 for vars
-        BitSet[] splitPlainText = splitArray(plaintext,12);
+        BitSet[] splitPlainText = splitBitSet(plaintext,12);
         L[0]=splitPlainText[0];
         R[0]=splitPlainText[1];
         p("encrypt L[0]: ");
@@ -35,7 +35,7 @@ public class SimplifiedDES{
             pl(K[curRound],8);
 
             p("encrypt r["+curRound+"]: ");
-            BitSet[] LR = splitArray(simpleDES(joinArrays(L[curRound-1],R[curRound-1],6),K[curRound]),12);
+            BitSet[] LR = splitBitSet(simpleDES(joinBitSets(L[curRound-1],R[curRound-1],6),K[curRound]),12);
             L[curRound] = LR[0];
             R[curRound] = LR[1];
 
@@ -45,14 +45,14 @@ public class SimplifiedDES{
             pl(R[curRound],6);
         }
         curRound--;
-        return joinArrays(R[curRound],L[curRound],6);
+        return joinBitSets(R[curRound],L[curRound],6);
     }
 
     //Returns a 2d array containing each half of the in array.
-    public static BitSet[] splitArray(BitSet in,int length) throws Exception {
+    public static BitSet[] splitBitSet(BitSet in,int length) throws Exception {
         int half_inLen = length /2;
         if(length %2 != 0){
-            throw new Exception("The splitArray function can only handle even length arrays. (odd arrays should never happen in this problem!)");
+            throw new Exception("The splitBitSet function can only handle even length arrays. (odd arrays should never happen in this problem!)");
         }
         BitSet[] out = new BitSet[2];
         out[0] = new BitSet(half_inLen);
@@ -73,7 +73,7 @@ public class SimplifiedDES{
         BitSet[] K = new BitSet[rounds+2];
 
         //Setting up round 0 for vars
-        BitSet[] splitPlainText = splitArray(plaintext,12);
+        BitSet[] splitPlainText = splitBitSet(plaintext,12);
         L[rounds+1]=splitPlainText[0];
         R[rounds+1]=splitPlainText[1];
         p("decrypt L["+(rounds+1)+"]: ");
@@ -91,7 +91,7 @@ public class SimplifiedDES{
             pl(K[curRound],8);
 
             p("decrypt r["+curRound+"]: ");
-            BitSet[] LR = splitArray(simpleDES(joinArrays(L[curRound+1],R[curRound+1],6),K[curRound]),12);
+            BitSet[] LR = splitBitSet(simpleDES(joinBitSets(L[curRound+1],R[curRound+1],6),K[curRound]),12);
             L[curRound] = LR[0];
             R[curRound] = LR[1];
 
@@ -101,23 +101,24 @@ public class SimplifiedDES{
             pl(R[curRound],6);
         }
         curRound++;
-        return joinArrays(R[curRound],L[curRound],6);
+        return joinBitSets(R[curRound],L[curRound],6);
     }
 
     //12 bit input and 8-bit round key. returns a 12-bit
     public static BitSet simpleDES(BitSet LR, BitSet K) throws Exception {
         BitSet outL;
         BitSet outR;
-        BitSet[] LRSplit = splitArray(LR,12);
+        BitSet[] LRSplit = splitBitSet(LR,12);
         BitSet L =LRSplit[0];
         BitSet R =LRSplit[1];
         BitSet roundResult = roundFunction(R, K);
         pl(roundResult,6);
         outL = R;
         outR = xorArrays(L,roundResult);
-        return joinArrays(outL,outR,6);
+        return joinBitSets(outL,outR,6);
     }
 
+    //returns an xor'd bitset of a and b.
     public static BitSet xorArrays(BitSet a,BitSet b){
         BitSet out;
         out=(BitSet)a.clone();
@@ -130,10 +131,10 @@ public class SimplifiedDES{
 
         BitSet ER = expander(R);
         BitSet xorER = xorArrays(ER, K);
-        BitSet[] splitXorER = splitArray(xorER, 8);
+        BitSet[] splitXorER = splitBitSet(xorER, 8);
         BitSet sboxd1 = sbox1(splitXorER[0]);
         BitSet sboxd2 = sbox2(splitXorER[1]);
-        return joinArrays(sboxd1, sboxd2, 3);
+        return joinBitSets(sboxd1, sboxd2, 3);
     }
 
     // 8-bit output expander(6-bit input)
@@ -239,10 +240,12 @@ public class SimplifiedDES{
         return out;
     }
 
-    public static BitSet joinArrays(BitSet a,BitSet b, int eachSize){
+    //Returns a bitset with a and b concatenated together (each of size eachSize, the bitset length LIES.). 100 + 101 -> 100101
+    public static BitSet joinBitSets(BitSet a,BitSet b, int eachSize){
         return strToBitSet(bitSetToStr(a,eachSize)+bitSetToStr(b,eachSize));
     }
 
+    //Converts a string of binary to bitset
     public static BitSet strToBitSet(String in) {
         BitSet out = new BitSet(in.length());
         for(int i=0;i<in.length();i++){
@@ -251,6 +254,7 @@ public class SimplifiedDES{
         return out;
     }
 
+    //Converts a bitset to a string of binary
     public static String bitSetToStr(BitSet in,int bytes) {
         String out="";
         for(int i=0;i<bytes;i++){
@@ -259,18 +263,21 @@ public class SimplifiedDES{
         return out;
     }
 
-    public static void pl(BitSet x,int bytes){
+    //Prints a certain number of bits from a bitset
+    public static void pl(BitSet x,int bits){
         if(enableDebug){
-            System.out.println(bitSetToStr(x,bytes));
+            System.out.println(bitSetToStr(x,bits));
         }
     }
 
+    //Faster way to print out string
     private static void p(String x){
         if(enableDebug){
             System.out.print(x);
         }
     }
 
+    //Faster way to print out string w/ new line
     private static void pl(String x){
         if(enableDebug){
             System.out.println(x);
