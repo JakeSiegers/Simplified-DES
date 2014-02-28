@@ -114,14 +114,16 @@ public class SimplifiedDES{
         BitSet roundResult = roundFunction(R, K);
         pl(roundResult,6);
         outL = R;
-        outR = xorArrays(L,roundResult);
+        outR = xorArrays(L,roundResult,6);
         return joinBitSets(outL,outR,6);
     }
 
     //returns an xor'd bitset of a and b.
-    public static BitSet xorArrays(BitSet a,BitSet b){
-        BitSet out;
-        out=(BitSet)a.clone();
+    public static BitSet xorArrays(BitSet a,BitSet b,int length){
+        BitSet out = new BitSet(length);
+        for(int i=0;i<length;i++){
+            out.set(i,a.get(i));
+        }
         out.xor(b);
         return out;
     }
@@ -130,7 +132,7 @@ public class SimplifiedDES{
     public static BitSet roundFunction(BitSet R,BitSet K) throws Exception {
 
         BitSet ER = expander(R);
-        BitSet xorER = xorArrays(ER, K);
+        BitSet xorER = xorArrays(ER, K,8);
         BitSet[] splitXorER = splitBitSet(xorER, 8);
         BitSet sboxd1 = sbox1(splitXorER[0]);
         BitSet sboxd2 = sbox2(splitXorER[1]);
@@ -171,7 +173,7 @@ public class SimplifiedDES{
     private static int[] determineRowColForSboxes(BitSet in){
         int[] out = new int[2];
         out[0] = in.get(0)?1:0; //row
-        out[1] = Integer.parseInt(bitSetToStr(in.get(1, 3), 3),2); //col
+        out[1] = Integer.parseInt(bitSetToStr(in.get(1, 4), 3),2); //col
         return out;
     }
 
@@ -199,6 +201,8 @@ public class SimplifiedDES{
              }
         };
         int[] rowCol = determineRowColForSboxes(in);
+        p("S1("+bitSetToStr(in,4)+"):"+s1[rowCol[0]][rowCol[1]]+" ");
+
         return strToBitSet(s1[rowCol[0]][rowCol[1]]);
     }
 
@@ -226,6 +230,7 @@ public class SimplifiedDES{
             }
         };
         int[] rowCol = determineRowColForSboxes(in);
+        p("S2("+bitSetToStr(in,4)+"): "+s2[rowCol[0]][rowCol[1]]+" ");
         return strToBitSet(s2[rowCol[0]][rowCol[1]]);
     }
 
