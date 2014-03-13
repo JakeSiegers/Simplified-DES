@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6e424e2d-62a9-4622-92a1-c1b5616bcb2e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DESDriver.java" afterPath="$PROJECT_DIR$/src/DESDriver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SimplifiedDES.java" afterPath="$PROJECT_DIR$/src/SimplifiedDES.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Simplified DES.iws" />
@@ -68,19 +67,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DESDriver.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DESDriver.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DESDriver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="14" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+            <state line="16" column="67" selection-start="573" selection-end="573" vertical-scroll-proportion="0.24464832" vertical-offset="0" max-vertical-offset="981">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimplifiedDES.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SimplifiedDES.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SimplifiedDES.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="175" column="72" selection-start="6027" selection-end="6027" vertical-scroll-proportion="0.4375" vertical-offset="2429" max-vertical-offset="4455">
+            <state line="23" column="17" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="4830">
               <folding />
             </state>
           </provider>
@@ -100,16 +99,15 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/SimpleDES.java" />
-        <option value="$PROJECT_DIR$/src/DESDriver.java" />
         <option value="$PROJECT_DIR$/src/SimplifiedDES.java" />
+        <option value="$PROJECT_DIR$/src/DESDriver.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="862" />
     <option name="y" value="22" />
-    <option name="width" value="818" />
-    <option name="height" value="969" />
+    <option name="width" value="1920" />
+    <option name="height" value="1099" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -193,22 +191,6 @@
     <property name="recentsLimit" value="5" />
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="260" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="262" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="266" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1060" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="262" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="266" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1060" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RunManager" selected="Application.DESDriver">
     <configuration default="false" name="DESDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -485,7 +467,7 @@
       <workItem from="1393454031416" duration="1973000" />
       <workItem from="1393461281791" duration="160000" />
       <workItem from="1393533778484" duration="146000" />
-      <workItem from="1393539781596" duration="13871000" />
+      <workItem from="1393539781596" duration="11000" />
     </task>
     <task id="LOCAL-00001" summary="Encrypt and Decrypt now work.&#10;Updated some bits of code that could be re-written">
       <created>1393455978876</created>
@@ -495,34 +477,14 @@
       <created>1393456021849</created>
       <updated>1393456021849</updated>
     </task>
-    <task id="LOCAL-00003" summary="Final Commit before changing to bitset">
-      <created>1393539813634</created>
-      <updated>1393539813634</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Converted To BitSet - Got a bug to fix though.">
-      <created>1393546983625</created>
-      <updated>1393546983625</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Finished converting to Bitset - Cleaned up stuff">
-      <created>1393550721283</created>
-      <updated>1393550721283</updated>
-    </task>
-    <task id="LOCAL-00006" summary="I'm pretty happy with this. May be turned in.&#10;">
-      <created>1393556611376</created>
-      <updated>1393556611376</updated>
-    </task>
-    <task id="LOCAL-00007" summary="final thing. I'm pretty happy with it.&#10;">
-      <created>1393560829862</created>
-      <updated>1393560829862</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38835000" />
+    <option name="totallyTimeSpent" value="24975000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="862" y="22" width="818" height="969" extended-state="6" />
+    <frame x="0" y="22" width="1920" height="1099" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -537,19 +499,19 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286991" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32839224" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905483" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24226804" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44241732" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17838125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30983117" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286991" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -568,12 +530,7 @@
     <MESSAGE value="Encrypt and Decrypt now work." />
     <MESSAGE value="Encrypt and Decrypt now work.&#10;Updated some bits of code that could be re-written" />
     <MESSAGE value="Quick cleanup." />
-    <MESSAGE value="Final Commit before changing to bitset" />
-    <MESSAGE value="Converted To BitSet - Got a bug to fix though." />
-    <MESSAGE value="Finished converting to Bitset - Cleaned up stuff" />
-    <MESSAGE value="I'm pretty happy with this. May be turned in.&#10;" />
-    <MESSAGE value="final thing. I'm pretty happy with it.&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="final thing. I'm pretty happy with it.&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Quick cleanup." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -741,16 +698,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DESDriver.java">
+    <entry file="file://$PROJECT_DIR$/src/SimplifiedDES.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="14" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+        <state line="23" column="17" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="4830">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SimplifiedDES.java">
+    <entry file="file://$PROJECT_DIR$/src/DESDriver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="72" selection-start="6027" selection-end="6027" vertical-scroll-proportion="0.4375" vertical-offset="2429" max-vertical-offset="4455">
+        <state line="16" column="67" selection-start="573" selection-end="573" vertical-scroll-proportion="0.24464832" vertical-offset="0" max-vertical-offset="981">
           <folding />
         </state>
       </provider>

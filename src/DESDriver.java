@@ -1,30 +1,32 @@
-import java.util.BitSet;
-
 public class DESDriver {
     public static void main(String[] args){
+
         try {
-            SimplifiedDES.enableDebug(true); //Set to true to see wonderful debug statements!
-            //System.out.println(SimplifiedDES.bitSetToStr(SimplifiedDES.expander(SimplifiedDES.strToBitSet("001010")),8));
+            SimplifiedDES desObj = new SimplifiedDES(false);
 
-            BitSet plaintext = SimplifiedDES.strToBitSet("100010110101");
-            BitSet key = SimplifiedDES.strToBitSet("111000111");
-            BitSet ciphertext;
-            BitSet plaintext2;
+            int[] inta = {1,0,0,0,1,0,1,1,0,1,0,1};
+            int[] intKey = {1,1,1,0,0,0,1,1,1};
 
-            ciphertext = SimplifiedDES.encrypt(plaintext,key,2);
+            boolean[] plaintext = desObj.intArrayToBoolArray(inta);
+            boolean[] key = desObj.intArrayToBoolArray(intKey);
 
-            plaintext2 = SimplifiedDES.decrypt(ciphertext,key,2);
+            boolean[] ciphertext = desObj.encrypt(plaintext, key, 6);
 
-            System.out.println("Key:              "+SimplifiedDES.bitSetToStr(key,9));
-            System.out.println("PlainText Before: "+SimplifiedDES.bitSetToStr(plaintext,12));
-            System.out.println("CipherText:       "+SimplifiedDES.bitSetToStr(ciphertext,12));
-            System.out.println("PlainText After:  "+SimplifiedDES.bitSetToStr(plaintext2,12));
+            key = desObj.intArrayToBoolArray(intKey);
 
+            boolean[] plaintext2 = desObj.decrypt(ciphertext, key,6);
 
-            System.exit(0);
+            pl(desObj.toString(plaintext));
+            pl(desObj.toString(ciphertext));
+            pl(desObj.toString(plaintext2));
+
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    private static void pl(Object x){
+        System.out.println(x);
     }
 }
